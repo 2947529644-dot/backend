@@ -1,0 +1,223 @@
+@startuml 海水养殖场可信水质数据监管平台-系统用例图
+
+left to right direction
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+
+actor "管理员\n(Admin)" as Admin
+actor "养殖户\n(Farmer)" as Farmer
+actor "监管局\n(Manager)" as Manager
+
+rectangle "海水养殖场可信水质数据监管平台" {
+
+  package "用户管理" {
+    usecase "管理员登录" as UC_A01
+    usecase "养殖户注册" as UC_F01
+    usecase "养殖户登录" as UC_F02
+    usecase "监管局注册" as UC_M01
+    usecase "监管局登录" as UC_M02
+    usecase "个人中心\n(修改资料/密码)" as UC_ALL01
+  }
+
+  package "用户与审批管理(管理员)" {
+    usecase "用户列表/查询" as UC_A02
+    usecase "创建用户" as UC_A03
+    usecase "编辑用户" as UC_A04
+    usecase "删除用户" as UC_A05
+    usecase "批量操作\n(启禁/删除)" as UC_A06
+    usecase "导出用户Excel" as UC_A07
+    usecase "审批监管局注册" as UC_A08
+    usecase "监管局审批上链" as UC_A09
+    usecase "查看绑定关系" as UC_A10
+  }
+
+  package "公告管理" {
+    usecase "发布公告\n(按角色定向)" as UC_A11
+    usecase "管理公告\n(查看/删除)" as UC_A12
+    usecase "公告上链" as UC_A13
+    usecase "查看公告" as UC_ALL02
+  }
+
+  package "区块链浏览器(管理员)" {
+    usecase "查看区块数据" as UC_A14
+    usecase "查看节点状态" as UC_A15
+    usecase "管理后台看板" as UC_A16
+    usecase "平台总览" as UC_A17
+  }
+
+  package "养殖池管理(养殖户)" {
+    usecase "创建养殖池" as UC_F03
+    usecase "查看养殖池列表" as UC_F04
+    usecase "编辑养殖池" as UC_F05
+    usecase "更新养殖池状态\n(空闲/活跃/休整)" as UC_F06
+    usecase "删除养殖池" as UC_F07
+  }
+
+  package "水质数据管理(养殖户)" {
+    usecase "上传企业许可证" as UC_F08
+    usecase "查看许可证状态" as UC_F09
+    usecase "删除被拒许可证" as UC_F10
+    usecase "手动上报水质数据" as UC_F11
+    usecase "查看水质数据" as UC_F12
+    usecase "删除未上链数据" as UC_F13
+  }
+
+  package "养殖过程管理(养殖户)" {
+    usecase "苗种投放记录\n(增删改查)" as UC_F14
+    usecase "投喂记录\n(增删改查)" as UC_F15
+    usecase "用药记录\n(增删改查)" as UC_F16
+    usecase "收获记录\n(增删改查)" as UC_F17
+  }
+
+  package "养殖户工作台" {
+    usecase "养殖户数据看板" as UC_F18
+  }
+
+  package "监管局审批" as pkg_manager_audit {
+    usecase "提交审批申请" as UC_M03
+    usecase "查看审批状态" as UC_M04
+    usecase "审批企业许可证\n(通过/拒绝)" as UC_M05
+    usecase "审批水质数据\n(单条/批量)" as UC_M06
+    usecase "水质数据上链" as UC_M07
+    usecase "审批养殖池\n(单条/批量)" as UC_M08
+    usecase "养殖池上链" as UC_M09
+  }
+
+  package "养殖过程监管(监管局)" {
+    usecase "审批苗种记录\n(单条/批量)" as UC_M10
+    usecase "苗种记录上链" as UC_M11
+    usecase "审批投喂记录\n(单条/批量)" as UC_M12
+    usecase "投喂记录上链" as UC_M13
+    usecase "审批用药记录\n(单条/批量)" as UC_M14
+    usecase "用药记录上链" as UC_M15
+    usecase "审批收获记录\n(单条/批量)" as UC_M16
+    usecase "收获记录上链" as UC_M17
+  }
+
+  package "监管局-养殖户绑定管理" {
+    usecase "申请绑定监管局" as UC_F19
+    usecase "查看可绑监管局列表" as UC_F20
+    usecase "查看绑定状态" as UC_F21
+    usecase "主动解绑" as UC_F22
+    usecase "审批绑定申请\n(通过/拒绝)" as UC_M18
+    usecase "监管局解绑" as UC_M19
+    usecase "绑定关系上链" as UC_M20
+  }
+
+  package "阈值与导出(监管局)" {
+    usecase "配置预警阈值\n(温度/盐度/pH/DO/NH3N/NO2)" as UC_M21
+    usecase "修改预警阈值" as UC_M22
+    usecase "导出水质数据Excel" as UC_M23
+    usecase "导出养殖过程数据Excel" as UC_M24
+  }
+
+  package "监管工作台" {
+    usecase "监管局数据看板" as UC_M25
+  }
+
+  package "公共功能" {
+    usecase "消息通知\n(列表/已读/删除)" as UC_ALL03
+    usecase "AI智能助手" as UC_ALL04
+    usecase "区块链合约绑定" as UC_ALL05
+  }
+}
+
+' ========== 管理员关联 ==========
+Admin --> UC_A01
+Admin --> UC_A02
+Admin --> UC_A03
+Admin --> UC_A04
+Admin --> UC_A05
+Admin --> UC_A06
+Admin --> UC_A07
+Admin --> UC_A08
+Admin --> UC_A09
+Admin --> UC_A10
+Admin --> UC_A11
+Admin --> UC_A12
+Admin --> UC_A13
+Admin --> UC_A14
+Admin --> UC_A15
+Admin --> UC_A16
+Admin --> UC_A17
+Admin --> UC_ALL01
+Admin --> UC_ALL02
+Admin --> UC_ALL03
+Admin --> UC_ALL04
+Admin --> UC_ALL05
+
+' ========== 养殖户关联 ==========
+Farmer --> UC_F01
+Farmer --> UC_F02
+Farmer --> UC_F03
+Farmer --> UC_F04
+Farmer --> UC_F05
+Farmer --> UC_F06
+Farmer --> UC_F07
+Farmer --> UC_F08
+Farmer --> UC_F09
+Farmer --> UC_F10
+Farmer --> UC_F11
+Farmer --> UC_F12
+Farmer --> UC_F13
+Farmer --> UC_F14
+Farmer --> UC_F15
+Farmer --> UC_F16
+Farmer --> UC_F17
+Farmer --> UC_F18
+Farmer --> UC_F19
+Farmer --> UC_F20
+Farmer --> UC_F21
+Farmer --> UC_F22
+Farmer --> UC_ALL01
+Farmer --> UC_ALL02
+Farmer --> UC_ALL03
+Farmer --> UC_ALL04
+Farmer --> UC_ALL05
+
+' ========== 监管局关联 ==========
+Manager --> UC_M01
+Manager --> UC_M02
+Manager --> UC_M03
+Manager --> UC_M04
+Manager --> UC_M05
+Manager --> UC_M06
+Manager --> UC_M07
+Manager --> UC_M08
+Manager --> UC_M09
+Manager --> UC_M10
+Manager --> UC_M11
+Manager --> UC_M12
+Manager --> UC_M13
+Manager --> UC_M14
+Manager --> UC_M15
+Manager --> UC_M16
+Manager --> UC_M17
+Manager --> UC_M18
+Manager --> UC_M19
+Manager --> UC_M20
+Manager --> UC_M21
+Manager --> UC_M22
+Manager --> UC_M23
+Manager --> UC_M24
+Manager --> UC_M25
+Manager --> UC_ALL01
+Manager --> UC_ALL02
+Manager --> UC_ALL03
+Manager --> UC_ALL04
+Manager --> UC_ALL05
+
+' ========== 用例间关系 ==========
+UC_M07 .> UC_M06 : <<extend>>
+UC_M09 .> UC_M08 : <<extend>>
+UC_M11 .> UC_M10 : <<extend>>
+UC_M13 .> UC_M12 : <<extend>>
+UC_M15 .> UC_M14 : <<extend>>
+UC_M17 .> UC_M16 : <<extend>>
+UC_M20 .> UC_M18 : <<extend>>
+UC_A09 .> UC_A08 : <<extend>>
+UC_A13 .> UC_A11 : <<extend>>
+UC_M03 .> UC_M01 : <<include>>
+UC_F19 .> UC_F20 : <<include>>
+
+@enduml
