@@ -9,6 +9,7 @@ target/
 logs/
 userUpload/
 部署逻辑.pdf
+application-dev.yml
 
 ### STS ###
 .apt_generated
